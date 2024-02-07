@@ -20,3 +20,9 @@ class BeamSearch:
         sentence = ""
         probability = 0.0
         return StringDouble.StringDouble(sentence, probability)
+
+
+if __name__ == "__main__":
+    graph = ExtractGraph()
+    graph.getProb(show=False)
+    beam_search = BeamSearch(graph)
