@@ -20,7 +20,8 @@ class BeamSearch:
         length = length + 1
         top_ten = sorted(self.graph.prob[preword].items(), key=lambda x: x[1], reverse=True)[:beamK]
         for item in top_ten:
-            post_sentence[pre_sentence+" "+item[0]]=score + math.log(item[1]) /((length) ** param_lambda)
+            post_sentence[pre_sentence+" " + item[0]] = \
+                (score + math.log(item[1])) /((length) ** param_lambda)
         return length
     
     def beamSearch(self, pre_words, beamK, maxToken, param_lambda=0):
