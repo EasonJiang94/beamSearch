@@ -20,21 +20,17 @@ class ExtractGraph(object):
         return
 
     def parse_txt_file(self, txt_file_path):
-        # read file
+        # read file and return the contents
         with open(txt_file_path, "r") as f :
             # parse every line
             lines = f.readlines()
         return lines
 
     def construct_graph(self, txt_lines):
+        # sort the content and construct the graph by the structure of dictionary
         for line in txt_lines:
             line = line.replace('\n', '')
             words = line.split(' ')
-            ## remove punctuations
-            # while(',' in words):
-            #     words.remove(',')
-            # while('.' in words):
-            #     words.remove('.')
             for i, word in enumerate(words[:-1]):
                 if not word in self.graph.keys():
                     self.graph[word] = {}
@@ -42,9 +38,9 @@ class ExtractGraph(object):
                 if not next_word in self.graph[word]:
                     self.graph[word][next_word] = 0
                 self.graph[word][next_word] += 1
-            # print(self.graph['<s>'])
-        # pp.pprint(self.graph)
+    
     def init_prob(self, show=False):
+        # the part to init the prob graph
         for word in self.graph:
             if not word in self.prob:
                 self.prob[word] = {}
@@ -53,13 +49,17 @@ class ExtractGraph(object):
                 self.prob[word][next_word] = self.graph[word][next_word]/sum_num
         if show:
             pp.pprint(self.prob)
-        print(self.prob['.'])
-    
+
     def getProb(self, head_word, tail_word):
+        # the be called and return the probability
+        # As the head_word/tail_word doesn't exist in the graph
+        # return the probability of ZERO
         if not head_word in self.prob:
             return 0
         if not tail_word in self.prob[head_word]:
             return 0
         return self.prob[head_word][tail_word]
+    
 if __name__ == '__main__':
-    extract_graph = ExtractGraph()
+    graph = ExtractGraph()
+    pp.pprint(graph.graph)
