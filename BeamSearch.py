@@ -1,6 +1,9 @@
 import math
 import StringDouble
 import ExtractGraph
+import pprint 
+pp = pprint.PrettyPrinter(indent=1)
+
 # Please add comments along with your code.
 class BeamSearch:
     graph = []
@@ -20,20 +23,20 @@ class BeamSearch:
             post_sentence[pre_sentence+" "+item[0]]=score + math.log(item[1]) /((length) ** param_lambda)
         return length
     
-    def beamSearchV1(self, pre_words, beamK, maxToken):
+    def beamSearch(self, pre_words, beamK, maxToken, param_lambda=0):
         # Basic beam search.
         sentence = pre_words
         length=len(sentence)
         sentence_map={}
         sentence_map[sentence] = 0
         prev = {}
-        while length<maxToken:
+        while length < maxToken:
             post_sentence={}
             for key, value in sentence_map.items():
                 if key.split(' ')[-1]=='</s>':
                     post_sentence[key] = value
                     continue
-                length = self.add_top_ten_next_word(post_sentence, key, value, beamK)
+                length = self.add_top_ten_next_word(post_sentence, key, value, beamK, param_lambda=param_lambda)
             sorted_items = sorted(post_sentence.items(), key=lambda x: x[1], reverse=True)
             sentence_map = dict(sorted_items[:beamK])  
             if prev == sentence_map:
@@ -42,22 +45,12 @@ class BeamSearch:
         sentence, probability = max(sentence_map.items(), key=lambda x: x[1])
         return StringDouble.StringDouble(sentence, probability)
 
+    def beamSearchV1(self, pre_words, beamK, maxToken):
+        return self.beamSearch(pre_words, beamK, maxToken)
+
     def beamSearchV2(self, pre_words, beamK, param_lambda, maxToken):
         # Beam search with sentence length normalization.
-        sentence = ""+pre_words
-        length=len(sentence)
-        sentence_map={}
-        sentence_map[sentence] = 0
-        while length<maxToken:
-            post_sentence={}
-            for key, value in sentence_map.items():
-                if key.split(' ')[-1]=='</s>':
-                    continue
-                length = self.add_top_ten_next_word(post_sentence, key,value,beamK, param_lambda=param_lambda)
-            sorted_items = sorted(post_sentence.items(), key=lambda x: x[1], reverse=True)
-            sentence_map = dict(sorted_items[:beamK])         
-        sentence, probability = max(sentence_map.items(), key=lambda x: x[1])
-        return StringDouble.StringDouble(sentence, probability)
+        return self.beamSearch(pre_words, beamK, maxToken, param_lambda=param_lambda)
 
 
 if __name__ == "__main__":
@@ -72,7 +65,7 @@ if __name__ == "__main__":
     print(str(sentence_prob.score) + "\t" + sentence_prob.string)
     
     print("=========== V2 ===========")
-    param_lambda = 0.3
+    param_lambda = 0.7
     sentence_prob = beam_search.beamSearchV2("<s>", 10, param_lambda, 20)
     print(str(sentence_prob.score) + "\t" + sentence_prob.string)
     sentence_prob = beam_search.beamSearchV2("<s> Israel and Jordan signed the peace", 10, param_lambda, 40)

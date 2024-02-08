@@ -1,4 +1,3 @@
-import re
 import pprint
 pp = pprint.PrettyPrinter(indent=1)
 
