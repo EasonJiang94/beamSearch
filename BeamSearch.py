@@ -57,19 +57,18 @@ class BeamSearch:
 if __name__ == "__main__":
     graph = ExtractGraph.ExtractGraph()
     beam_search = BeamSearch(graph)
-    print("=========== V1 ===========")
-    sentence_prob = beam_search.beamSearchV1("<s>", 10, 20)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
-    sentence_prob = beam_search.beamSearchV1("<s> Israel and Jordan signed the peace", 10, 40)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
-    sentence_prob = beam_search.beamSearchV1("<s> It is", 10, 15)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
-    
-    print("=========== V2 ===========")
-    param_lambda = 0.7
-    sentence_prob = beam_search.beamSearchV2("<s>", 10, param_lambda, 20)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
-    sentence_prob = beam_search.beamSearchV2("<s> Israel and Jordan signed the peace", 10, param_lambda, 40)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
-    sentence_prob = beam_search.beamSearchV2("<s> It is", 10, param_lambda, 15)
-    print(str(sentence_prob.score) + "\t" + sentence_prob.string)
+    plist = [0, 0.3, 0.5, 0.7, 0.99]
+    for param_lambda in plist:
+        print(f"[{param_lambda = }]")
+        prefix = "<s> It was"
+        print(f"pre_word = {prefix}")
+        sentence_prob = beam_search.beamSearchV2(prefix, 10, param_lambda, 20)
+        print(str(sentence_prob.score) + "\t" + sentence_prob.string)
+        prefix = "<s> The weather"
+        print(f"pre_word : {prefix}")
+        sentence_prob = beam_search.beamSearchV2(prefix, 10, param_lambda, 40)
+        print(str(sentence_prob.score) + "\t" + sentence_prob.string)
+        prefix = "<s> I"
+        print(f"pre_word = {prefix}")
+        sentence_prob = beam_search.beamSearchV2(prefix, 10, param_lambda, 15)
+        print(str(sentence_prob.score) + "\t" + sentence_prob.string)

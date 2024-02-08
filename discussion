@@ -1,0 +1,36 @@
+Beam Search Output:
+
+
+[param_lambda = 0]
+pre_word_1 = <s> It was
+pre_word_2 : <s> The weather
+pre_word_3 = <s> I
+
+[param_lambda = 0]
+-9.432594093489424      <s> It was quoted as well . </s>
+-5.470186253948563      <s> The weather forecast said . </s>
+-6.129955820792178      <s> I hear when he added . </s>
+
+[param_lambda = 0.3]
+-0.5431739501759874     <s> It was quoted as well as well as well as well as well as well as well . </s>
+-0.490509410812063      <s> The weather forecast said that he said that he said that he added . </s>
+-0.5717715186362632     <s> I hear when he said that he said that he added . </s>
+
+[param_lambda = 0.5]
+-0.1034681511984102     <s> It was quoted as well as well as well as well as well as the two countries . </s>
+-0.09329728026396157    <s> The weather forecast said that he said that he said that he added . </s>
+-0.15209171281604295    <s> I hear a press conference here this year , the two countries . </s>
+
+[param_lambda = 0.7]
+-0.03122566321643641    <s> It was quoted as well as well as well as well as the two countries . </s>
+-0.032787074104732694   <s> The weather forecast said that he said that he added . </s>
+-0.047399402729347104   <s> I hear a press conference here today that the two countries . </s>
+
+[param_lambda = 0.99]
+-0.005280857742444909   <s> It was quoted as well as well as well as well as the two countries . </s>
+-0.005523161289644438   <s> The weather forecast said that he said that he added . </s>
+-0.009094599871044029   <s> I hear a press conference here today by the two countries . </s>
+
+According to the result shown above, the length would getting longer as the lambda increases. 
+It is because longer sentences provide extra award points, so that the sentence can go continuously. 
+Otherwise, longer sentences means the probability would go smaller, and the beam search would end the sentences as soon as possible. 

@@ -1,0 +1,10 @@
+The probability of "Water" appearing after "<s>" is 0.0004
+The probability of "<s>" appearing after "Water" is 0
+The probability of "economy" appearing after "planned" is 0.046511627906976744
+The probability of "</s>" appearing after "." is 1.0
+-5.404447778507953      <s> He said . </s>
+-2.954910279033736      <s> Israel and Jordan signed the peace process . </s>
+-5.83196914992102       <s> It is expected . </s>
+-0.028355627480674335   <s> He said that he said that he said that he added . </s>
+-0.03124848443072709    <s> Israel and Jordan signed the peace agreement on the two countries , the two countries . </s>
+-0.03403087458554624    <s> It is expected to be held talks on January 8 . </s>
